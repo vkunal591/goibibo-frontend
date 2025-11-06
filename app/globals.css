@@ -1,26 +1,82 @@
+/* Import Tailwind v4 in one line (no more @tailwind base/components/utilities) */
 @import "tailwindcss";
 
+/* Design tokens / variables */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
+  /* Light mode vars */
+  --background: 240 20% 97%;
+  --foreground: 240 10% 15%;
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
+  --radius: 0.5rem;
+
+  /* Colors (HSL sets) */
+  --card: 0 0% 100%;
+  --card-foreground: 240 10% 15%;
+  --popover: 0 0% 100%;
+  --popover-foreground: 240 10% 15%;
+  --primary: 262 83% 58%;
+  --primary-foreground: 0 0% 100%;
+  --secondary: 330 65% 45%;
+  --secondary-foreground: 0 0% 100%;
+  --muted: 240 5% 96%;
+  --muted-foreground: 240 4% 46%;
+  --accent: 330 65% 45%;
+  --accent-foreground: 0 0% 100%;
+  --destructive: 0 84.2% 60.2%;
+  --destructive-foreground: 0 0% 100%;
+  --border: 240 10% 88%;
+  --input: 240 10% 88%;
+  --ring: 262 83% 58%;
+  --sidebar-background: 0 0% 98%;
+  --sidebar-foreground: 240 5.3% 26.1%;
+  --sidebar-primary: 240 5.9% 10%;
+  --sidebar-primary-foreground: 0 0% 98%;
+  --sidebar-accent: 240 4.8% 95.9%;
+  --sidebar-accent-foreground: 240 5.9% 10%;
+  --sidebar-border: 220 13% 91%;
+  --sidebar-ring: 217.2 91.2% 59.8%;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+/* Dark mode switch via class (preferred) or prefers-color-scheme */
+.dark {
+  --background: 240 10% 10%;
+  --foreground: 0 0% 98%;
+  --card: 240 10% 15%;
+  --card-foreground: 0 0% 98%;
+  --popover: 240 10% 15%;
+  --popover-foreground: 0 0% 98%;
+  --primary: 262 83% 58%;
+  --primary-foreground: 0 0% 100%;
+  --secondary: 330 65% 45%;
+  --secondary-foreground: 0 0% 100%;
+  --muted: 240 10% 20%;
+  --muted-foreground: 240 5% 65%;
+  --accent: 330 65% 45%;
+  --accent-foreground: 0 0% 100%;
+  --destructive: 0 62.8% 30.6%;
+  --destructive-foreground: 0 0% 98%;
+  --border: 240 10% 25%;
+  --input: 240 10% 25%;
+  --ring: 262 83% 58%;
+  --sidebar-background: 240 5.9% 10%;
+  --sidebar-foreground: 240 4.8% 95.9%;
+  --sidebar-primary: 224.3 76.3% 48%;
+  --sidebar-primary-foreground: 0 0% 100%;
+  --sidebar-accent: 240 3.7% 15.9%;
+  --sidebar-accent-foreground: 240 4.8% 95.9%;
+  --sidebar-border: 240 3.7% 15.9%;
+  --sidebar-ring: 217.2 91.2% 59.8%;
 }
 
+/* Global styles using custom variables */
 body {
-  background: var(--background);
-  color: var(--foreground);
+  background: hsl(var(--background));
+  color: hsl(var(--foreground));
   font-family: Arial, Helvetica, sans-serif;
+}
+
+/* Example utility-like style */
+* {
+  border-color: hsl(var(--border));
 }
