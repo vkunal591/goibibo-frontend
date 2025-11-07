@@ -16,7 +16,7 @@ const Header = () => {
       }}>
       <div className="absolute inset-0 bg-black/50"></div>
       <nav className="relative z-20 flex justify-between items-center px-6 md:px-10 py-5 text-white">
-        <h2 className="text-2xl font-bold tracking-wide">SkyFly</h2>
+        <img  className="h-24 mix-blend-multiply  " src="https://thumbs.dreamstime.com/b/print-238191896.jpg" />
         <ul className="hidden md:flex space-x-8 text-lg font-medium">
           <li className="hover:text-indigo-400 transition">Home</li>
           <li className="hover:text-indigo-400 transition">Flights</li>

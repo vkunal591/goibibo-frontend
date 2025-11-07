@@ -169,7 +169,7 @@ const TicketData: React.FC = () => {
                 <p className="text-xs text-gray-500">per adult</p>
                 <button
                   onClick={() => setSelectedFlight(flight)}
-                  className="mt-2 w-full sm:w-auto px-4 py-2 text-sm font-semibold bg-blue-600 text-white rounded-md hover:bg-blue-700 transition"
+                  className="mt-3 w-full sm:w-auto px-4 py-2 bg-gradient-to-r from-[#5A0F1A] to-[#7B1E3D] hover:from-[#4A0C15] hover:to-[#681A33] text-white text-sm font-semibold rounded-full shadow-md hover:shadow-lg transition-all duration-300 flex items-center justify-center gap-1"
                 >
                   VIEW FARES
                 </button>
