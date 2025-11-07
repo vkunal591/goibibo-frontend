@@ -29,7 +29,7 @@ const FlightBookingForm = () => {
     { city: "Udaipur", code: "UDR", country: "India" },
   ];
   return (
-    <div className="min-h-screen p-6">
+    <div className="min-h-[70vh] p-6">
       <div className="max-w-7xl mx-auto">
         <div className="bg-card rounded-t-2xl shadow-lg border border-border">
           <div className="flex w-full h-full border-b border-gray-200 
@@ -200,12 +200,13 @@ const FlightBookingForm = () => {
                   </div>
                 )}
               </div>
-
-              {/* SWITCH BUTTON */}
               <div className="flex items-center justify-center pb-2">
-                <button className="p-3 rounded-full bg-gradient-to-r from-indigo-500 to-purple-500 text-white shadow-md hover:scale-105 transition-transform">
-                  <ArrowLeftRight className="h-5 w-5" />
-                </button>
+               <button
+  className="p-3 rounded-full bg-gradient-to-r from-[#5A0F1A] to-[#7B1E3D] hover:from-[#4A0C15] hover:to-[#681A33] text-white shadow-md hover:scale-105 transition-transform"
+>
+  <ArrowLeftRight className="h-5 w-5" />
+</button>
+
               </div>
               <div className="flex-1 min-w-[180px] relative" ref={modalRef}>
                 <label className="text-sm text-gray-600 mb-2 block">To</label>
@@ -267,7 +268,7 @@ const FlightBookingForm = () => {
                   className="w-full h-14 px-4 text-base border border-gray-300 rounded-xl bg-white shadow-sm focus:ring-2 focus:ring-indigo-500 outline-none transition-all"
                   min={departureDate} />
               </div>
-              <div className="flex-1 min-w-[200px]" onClick={() => setShowModal(!showModal)}>
+              <div className="flex-1 min-w-[1100px]" onClick={() => setShowModal(!showModal)}>
                 <label className="text-sm text-gray-600 mb-2 block">Passengers / Class</label>
                 <button className="w-full h-14 flex items-center justify-between px-4 border border-gray-300 rounded-xl bg-white hover:bg-gray-50 focus:ring-2 focus:ring-indigo-500 transition-all">
                   <div className="text-left">
