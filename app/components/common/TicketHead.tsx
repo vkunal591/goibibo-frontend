@@ -1,4 +1,5 @@
-import React from "react";
+"use client";
+import React, { useState, useRef, useEffect } from "react";
 import {
   ArrowLeftRight,
   CalendarDays,
@@ -14,28 +15,69 @@ const fareTypes: string[] = [
   "Senior Citizen",
   "Doctors & Nurses",
 ];
-
 const FlightSearchHeader: React.FC = () => {
+  const [tripType, setTripType] = useState("One Way");
+  const [isTripOpen, setIsTripOpen] = useState(false);
+  const dropdownRef = useRef<HTMLDivElement>(null);
+  const tripOptions = ["One Way", "Round Trip", "Multi-City"];
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (
+        dropdownRef.current &&
+        !dropdownRef.current.contains(event.target as Node)
+      ) {
+        setIsTripOpen(false);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
   return (
     <header className="w-full bg-white border-b border-gray-200 shadow-sm">
       <div className="max-w-7xl mx-auto px-6 py-6">
-        {/* Search Widget */}
         <div className="flex flex-wrap items-end justify-between gap-4">
-          {/* Trip Type */}
-          <div className="flex flex-col">
+          <div className="flex flex-col relative" ref={dropdownRef}>
             <label
               htmlFor="tripType"
               className="text-sm font-semibold text-gray-600 mb-2"
             >
               Trip Type
             </label>
-            <div className="relative flex items-center bg-gray-50 border border-gray-300 rounded-md px-4 py-2 cursor-pointer hover:bg-gray-100">
-              <span className="text-gray-800 font-medium text-sm">One Way</span>
-              <ChevronDown className="ml-2 h-4 w-4 text-gray-500" />
+            <div
+              onClick={() => setIsTripOpen(!isTripOpen)}
+              className="flex items-center justify-between bg-gray-50 border border-gray-300 rounded-md px-4 py-2 w-40 cursor-pointer hover:bg-gray-100"
+            >
+              <span className="text-gray-800 font-medium text-sm">
+                {tripType}
+              </span>
+              <ChevronDown
+                className={`ml-2 h-4 w-4 text-gray-500 transition-transform ${
+                  isTripOpen ? "rotate-180" : ""
+                }`}
+              />
             </div>
+            {isTripOpen && (
+              <div className="absolute top-[66px] left-0 bg-white border border-gray-200 rounded-md shadow-md w-40 z-50">
+                {tripOptions.map((option) => (
+                  <div
+                    key={option}
+                    onClick={() => {
+                      setTripType(option);
+                      setIsTripOpen(false);
+                    }}
+                    className={`px-4 py-2 text-sm cursor-pointer transition 
+                      ${
+                        tripType === option
+                          ? "bg-indigo-50 text-indigo-600"
+                          : "text-gray-700 hover:bg-gray-100"
+                      }`}
+                  >
+                    {option}
+                  </div>
+                ))}
+              </div>
+            )}
           </div>
-
-          {/* From */}
           <div className="flex flex-col">
             <label
               htmlFor="fromCity"
@@ -51,8 +93,6 @@ const FlightSearchHeader: React.FC = () => {
               readOnly
             />
           </div>
-
-          {/* Swap Icon */}
           <div className="flex items-center justify-center">
             <button
               type="button"
@@ -62,8 +102,6 @@ const FlightSearchHeader: React.FC = () => {
               <ArrowLeftRight className="h-5 w-5 text-gray-600" />
             </button>
           </div>
-
-          {/* To */}
           <div className="flex flex-col">
             <label
               htmlFor="toCity"
@@ -79,8 +117,6 @@ const FlightSearchHeader: React.FC = () => {
               readOnly
             />
           </div>
-
-          {/* Depart */}
           <div className="flex flex-col">
             <label
               htmlFor="departure"
@@ -99,8 +135,6 @@ const FlightSearchHeader: React.FC = () => {
               />
             </div>
           </div>
-
-          {/* Return */}
           <div className="flex flex-col">
             <label
               htmlFor="return"
@@ -119,8 +153,6 @@ const FlightSearchHeader: React.FC = () => {
               />
             </div>
           </div>
-
-          {/* Passengers */}
           <div className="flex flex-col">
             <label
               htmlFor="travellers"
@@ -139,44 +171,22 @@ const FlightSearchHeader: React.FC = () => {
               />
             </div>
           </div>
-
-          {/* Search Button */}
           <div className="flex-shrink-0">
             <button
               type="button"
-              className="flex items-center justify-center bg-blue-600 hover:bg-blue-700 text-white font-semibold px-6 py-3 rounded-md transition-all shadow-sm"
+              className="px-10 py-4 
+                bg-gradient-to-r from-[#5A0F1A] to-[#7B1E3D] 
+                hover:from-[#4A0C15] hover:to-[#681A33] 
+                text-white text-base font-semibold uppercase tracking-wide 
+                shadow-lg rounded-full 
+                transition-all duration-300"
             >
-              <Search className="h-4 w-4 mr-2" />
               Search Flights
             </button>
-          </div>
-        </div>
-
-        {/* Fare Type Selection */}
-        <div className="mt-6 border-t border-gray-200 pt-4">
-          <div className="flex items-center gap-6">
-            <span className="text-sm font-semibold text-gray-600">
-              Fare Type:
-            </span>
-            <ul className="flex items-center gap-5 text-sm text-gray-700">
-              {fareTypes.map((type, index) => (
-                <li
-                  key={type}
-                  className={`cursor-pointer px-3 py-1 border rounded-md transition ${
-                    index === 0
-                      ? "bg-blue-50 border-blue-400 text-blue-700 font-medium"
-                      : "hover:bg-gray-100 border-gray-300"
-                  }`}
-                >
-                  {type}
-                </li>
-              ))}
-            </ul>
           </div>
         </div>
       </div>
     </header>
   );
 };
-
 export default FlightSearchHeader;

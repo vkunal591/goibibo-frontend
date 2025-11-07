@@ -2,6 +2,7 @@ import React from "react";
 import TicketFilter from "../components/TicketFilter";
 import TicketData from "../components/TicketData";
 import FlightSearchHeader from "../components/common/TicketHead";
+import Multiway from "../components/Multiway";
 
 const Page: React.FC = () => {
   return (
@@ -13,7 +14,8 @@ const Page: React.FC = () => {
             <TicketFilter />
           </div>
           <div className="flex-1 min-w-0">
-            <TicketData />
+            {/* <TicketData /> */}
+            <Multiway />
           </div>
         </div>
       </div>
