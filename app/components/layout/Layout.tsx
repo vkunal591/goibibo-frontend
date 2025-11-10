@@ -11,10 +11,9 @@ import Navbar from "../common/Navbar";
 interface Props {
     children: ReactNode;
     protected?: boolean;
-    hideNavbar?: boolean;
 }
 
-export default function Layout({ children, protected: isProtected, hideNavbar = false }: Props) {
+export default function Layout({ children, protected: isProtected }: Props) {
     const { user } = useAppSelector((s) => s.auth);
     const router = useRouter();
 
@@ -27,7 +26,7 @@ export default function Layout({ children, protected: isProtected, hideNavbar = 
     return (
         <div className="flex min-h-screen flex-col">
             {/* <Header /> */}
-            {!hideNavbar && <Navbar />}
+            <Navbar />
             <div className="flex flex-1">
                 <main className="flex-1 p-4 bg-gray-50">{children}</main>
             </div>

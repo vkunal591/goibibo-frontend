@@ -1,158 +1,121 @@
 "use client";
-import React, { useState } from "react";
-import { motion } from "framer-motion";
-import { User, Lock, Mail } from "lucide-react";
-const SignInPage: React.FC = () => {
-  const [isRegister, setIsRegister] = useState(false);
-  return (
-    <section className="flex min-h-screen items-center justify-center bg-[#25252b]">
-      <div
-        className={`relative w-[750px] h-[450px] overflow-hidden border-2 border-pink-500 shadow-[0_0_25px_#ff2770] transition-all duration-1000 ease-in-out ${
-          isRegister ? "active" : ""
-        }`}
-      >
-        <motion.div
-          animate={
-            isRegister
-              ? { rotate: 0, skewY: 0 }
-              : { rotate: 10, skewY: 40 }
-          }
-          transition={{ duration: 1.5, delay: isRegister ? 0.5 : 1.6 }}
-          className="absolute right-0 top-[-5px] h-[600px] w-[850px] origin-bottom-right bg-gradient-to-tr from-[#25252b] to-pink-500"
-        />
-        <motion.div
-          animate={
-            isRegister
-              ? { rotate: -11, skewY: -41 }
-              : { rotate: 0, skewY: 0 }
-          }
-          transition={{ duration: 1.5, delay: isRegister ? 1.2 : 0.5 }}
-          className="absolute left-[250px] top-full h-[700px] w-[850px] origin-bottom-left border-t-4 border-pink-500 bg-[#25252b]"
-        />
-        <div
-          className={`absolute top-0 flex h-full w-1/2 flex-col justify-center px-10 transition-all duration-700 ${
-            isRegister ? "-translate-x-full opacity-0" : "translate-x-0 opacity-100"
-          }`}
-        >
-          <h2 className="mb-6 text-center text-3xl font-bold text-white">Login</h2>
-          <form className="space-y-6">
-            <div className="relative">
-              <input
-                type="text"
-                required
-                className="peer w-full border-b-2 border-white bg-transparent py-2 pr-6 text-white outline-none transition-colors focus:border-pink-500"
-              />
-              <label className="absolute left-0 top-1/2 -translate-y-1/2 text-white transition-all peer-focus:-top-1 peer-focus:text-pink-500 peer-valid:-top-1 peer-valid:text-pink-500">
-                Username
-              </label>
-              <User className="absolute right-0 top-1/2 h-5 w-5 -translate-y-1/2 text-white peer-focus:text-pink-500" />
+import React from "react";
+const SignInPage = () => {
+    return (
+        <section className="min-h-screen flex items-stretch text-white">
+            <div
+                className="hidden lg:flex w-full bg-gray-500 bg-no-repeat bg-cover relative items-center"
+                style={{
+                    backgroundImage: "url('/assets/sign.jpg')",
+                    backgroundSize: "cover",
+                    backgroundPosition: "center",
+                    backgroundRepeat: "no-repeat",}}>
+                <div className="absolute bg-black/60 inset-0 z-0"></div>
+                <div className="w-full px-24 z-10">
+                    <h1 className="text-5xl font-bold text-left tracking-wide">
+                        Keep it special
+                    </h1>
+                    <p className="text-3xl my-4">
+                        Capture your personal memory in a unique way, anywhere.
+                    </p>
+                </div>
+                <div className="bottom-0 absolute p-4 text-center right-0 left-0 flex justify-center space-x-4">
+                    <span>
+                        <svg
+                            fill="#fff"
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="24"
+                            height="24"
+                            viewBox="0 0 24 24"
+                        >
+                            <path d="M24 4.557c-.883.392-1.832.656-2.828.775..." />
+                        </svg>
+                    </span>
+                    <span>
+                        <svg
+                            fill="#fff"
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="24"
+                            height="24"
+                            viewBox="0 0 24 24"
+                        >
+                            <path d="M9 8h-3v4h3v12h5v-12..." />
+                        </svg>
+                    </span>
+                </div>
             </div>
-            <div className="relative">
-              <input
-                type="password"
-                required
-                className="peer w-full border-b-2 border-white bg-transparent py-2 pr-6 text-white outline-none transition-colors focus:border-pink-500"
-              />
-              <label className="absolute left-0 top-1/2 -translate-y-1/2 text-white transition-all peer-focus:-top-1 peer-focus:text-pink-500 peer-valid:-top-1 peer-valid:text-pink-500">
-                Password
-              </label>
-              <Lock className="absolute right-0 top-1/2 h-5 w-5 -translate-y-1/2 text-white peer-focus:text-pink-500" />
+            <div
+                className="lg:w-1/2 w-full flex items-center justify-center text-center md:px-16 px-0 relative"
+                style={{ backgroundColor: "#161616" }}>
+                <div
+                    className="absolute lg:hidden z-10 inset-0 bg-gray-500 bg-no-repeat bg-cover"
+                    style={{
+                        backgroundImage:
+                            "url('https://images.unsplash.com/photo-1577495508048-b635879837f1?auto=format&fit=crop&w=675&q=80')",}}>
+                    <div className="absolute bg-black/60 inset-0 z-0"></div>
+                </div>
+                <div className="w-full bg-black py-6 z-20 max-w-md mx-auto">
+                    <h1 className="my-6 text-3xl font-bold text-indigo-400">Create Account</h1>
+                    <p className="text-gray-300 mb-4">Register to start your journey</p>
+                    <form className="sm:w-2/3 w-full px-4 lg:px-0 mx-auto">
+                        <div className="pb-2 pt-4">
+                            <input
+                                type="text"
+                                name="fullname"
+                                placeholder="Full Name"
+                                className="block w-full py-1 px-4 text-lg rounded-sm border-b-2 bg-black/50  border-gray-700 text-white focus:outline-none focus:ring-2 focus:ring-indigo-500"/>
+                        </div>
+                        <div className="pb-2 pt-4">
+                            <input
+                                type="text"
+                                name="ph. no."
+                                placeholder="number"
+                               className="block w-full py-1 px-4 text-lg rounded-sm border-b-2 bg-black/50  border-gray-700 text-white focus:outline-none focus:ring-2 focus:ring-indigo-500"/>
+                        </div>
+                        <div className="pb-2 pt-4">
+                            <input
+                                type="text"
+                                name="email"
+                                placeholder="email"
+                                className="block w-full py-1 px-4 text-lg rounded-sm border-b-2 bg-black/50  border-gray-700 text-white focus:outline-none focus:ring-2 focus:ring-indigo-500"/>
+                        </div><div className="pb-2 pt-4">
+                            <input
+                                type="password"
+                                name="passsword"
+                                placeholder="password"
+                                 className="block w-full py-1 px-4 text-lg rounded-sm border-b-2 bg-black/50  border-gray-700 text-white focus:outline-none focus:ring-2 focus:ring-indigo-500"/>
+                        </div><div className="pb-2 pt-4">
+                            <input
+                                type="password"
+                                name="passsword"
+                                placeholder="confirm password"
+                                className="block w-full py-1 px-4 text-lg rounded-sm border-b-2 bg-black/50  border-gray-700 text-white focus:outline-none focus:ring-2 focus:ring-indigo-500"/>
+                        </div>
+                        <div className="flex items-center justify-between text-gray-300 text-sm mt-4">
+                            <label className="flex items-center space-x-2">
+                                <input
+                                    type="checkbox"
+                                    className="form-checkbox text-indigo-500 focus:ring-indigo-500"/>
+                                <span>I agree to the terms & conditions</span>
+                            </label>
+                        </div>
+                        <div className="px-4 pb-2 pt-6">
+                            <button
+                                type="submit"
+                                className="uppercase block w-full p-4 text-lg rounded-full bg-indigo-500 hover:bg-indigo-600 focus:outline-none">
+                                Register
+                            </button>
+                        </div>
+                        <p className="text-center text-gray-400 mt-4">
+                            Already have an account?{" "}
+                            <a href="#" className="text-indigo-400 hover:underline">
+                                Sign In
+                            </a>
+                        </p>
+                    </form>
+                </div>
             </div>
-            <button
-              type="submit"
-              className="relative w-full overflow-hidden rounded-full border-2 border-pink-500 py-2 font-semibold text-white transition-all duration-300 hover:before:top-0 before:absolute before:left-0 before:top-[-100%] before:h-[300%] before:w-full before:bg-gradient-to-b before:from-[#25252b] before:via-pink-500 before:to-[#25252b] before:transition-all before:duration-500 before:-z-10 hover:before:top-0"
-            >
-              Login
-            </button>
-            <p className="text-center text-sm text-gray-300">
-              Don't have an account?{" "}
-              <button
-                type="button"
-                onClick={() => setIsRegister(true)}
-                className="font-semibold text-pink-500 hover:underline"
-              >
-                Sign Up
-              </button>
-            </p>
-          </form>
-        </div>
-        <div
-          className={`absolute right-0 top-0 flex h-full w-1/2 flex-col justify-center px-10 text-right transition-all duration-700 ${
-            isRegister ? "translate-x-full opacity-0" : "translate-x-0 opacity-100"
-          }`}
-        >
-          <h2 className="text-4xl font-bold uppercase text-white">Welcome Back!</h2>
-          <p className="mt-4 text-sm text-gray-300">
-            We’re happy to have you again. If you need anything, we’re here to help.
-          </p>
-        </div>
-        <div
-          className={`absolute top-0 right-0 flex h-full w-1/2 flex-col justify-center px-12 transition-all duration-700 ${
-            isRegister ? "translate-x-0 opacity-100" : "translate-x-full opacity-0"
-          }`}
-        >
-          <h2 className="mb-6 text-center text-3xl font-bold text-white">Register</h2>
-          <form className="space-y-6">
-            <div className="relative">
-              <input
-                type="text"
-                required
-                className="peer w-full border-b-2 border-white bg-transparent py-2 pr-6 text-white outline-none transition-colors focus:border-pink-500"
-              />
-              <label className="absolute left-0 top-1/2 -translate-y-1/2 text-white transition-all peer-focus:-top-1 peer-focus:text-pink-500 peer-valid:-top-1 peer-valid:text-pink-500">
-                Username
-              </label>
-              <User className="absolute right-0 top-1/2 h-5 w-5 -translate-y-1/2 text-white peer-focus:text-pink-500" />
-            </div>
-            <div className="relative">
-              <input
-                type="email"
-                required
-                className="peer w-full border-b-2 border-white bg-transparent py-2 pr-6 text-white outline-none transition-colors focus:border-pink-500"
-              />
-              <label className="absolute left-0 top-1/2 -translate-y-1/2 text-white transition-all peer-focus:-top-1 peer-focus:text-pink-500 peer-valid:-top-1 peer-valid:text-pink-500">
-                Email
-              </label>
-              <Mail className="absolute right-0 top-1/2 h-5 w-5 -translate-y-1/2 text-white peer-focus:text-pink-500" />
-            </div>
-            <div className="relative">
-              <input
-                type="password"
-                required
-                className="peer w-full border-b-2 border-white bg-transparent py-2 pr-6 text-white outline-none transition-colors focus:border-pink-500"
-              />
-              <label className="absolute left-0 top-1/2 -translate-y-1/2 text-white transition-all peer-focus:-top-1 peer-focus:text-pink-500 peer-valid:-top-1 peer-valid:text-pink-500">
-                Password
-              </label>
-              <Lock className="absolute right-0 top-1/2 h-5 w-5 -translate-y-1/2 text-white peer-focus:text-pink-500" />
-            </div>
-            <button
-              type="submit"
-              className="relative w-full overflow-hidden rounded-full border-2 border-pink-500 py-2 font-semibold text-white transition-all duration-300 hover:before:top-0 before:absolute before:left-0 before:top-[-100%] before:h-[300%] before:w-full before:bg-gradient-to-b before:from-[#25252b] before:via-pink-500 before:to-[#25252b] before:transition-all before:duration-500 before:-z-10 hover:before:top-0">
-              Register
-            </button>
-            <p className="text-center text-sm text-gray-300">
-              Already have an account?{" "}
-              <button
-                type="button"
-                onClick={() => setIsRegister(false)}
-                className="font-semibold text-pink-500 hover:underline">
-                Sign In
-              </button>
-            </p>
-          </form>
-        </div>
-        <div
-          className={`absolute left-0 top-0 flex h-full w-1/2 flex-col justify-center px-10 text-left transition-all duration-700 ${
-            isRegister ? "translate-x-0 opacity-100" : "-translate-x-full opacity-0"
-          }`} >
-          <h2 className="text-4xl font-bold uppercase text-white">Welcome!</h2>
-          <p className="mt-4 text-sm text-gray-300">
-            We’re delighted to have you here. If you need any help, feel free to reach out.
-          </p>
-        </div>
-      </div>
-    </section>
-  );
+        </section>
+    );
 };
 export default SignInPage;

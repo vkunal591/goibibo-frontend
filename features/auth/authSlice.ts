@@ -2,11 +2,15 @@ import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
 import { apiService } from "@/api/apiService";
 import { appConfig } from "@/config/appConfig";
 import { showToast } from "@/app/components/common/ToastProvider";
+
+// -------------------- Types --------------------
 interface User {
     id: string;
     name: string;
     email: string;
+    // add other user properties here
 }
+
 interface AuthState {
     user: User | null;
     loading: boolean;
@@ -18,6 +22,8 @@ const initialState: AuthState = {
     loading: false,
     error: null,
 };
+
+// -------------------- Async Thunks --------------------
 export const login = createAsyncThunk<
     User, 
     { email: string; password: string }, 
@@ -32,6 +38,8 @@ export const login = createAsyncThunk<
                 showSuccessToast: true,
                 showErrorToast: true
             });
+
+            // Save tokens
             localStorage.setItem(appConfig.tokenKeys.access, data.accessToken);
             localStorage.setItem(appConfig.tokenKeys.refresh, data.refreshToken);
 
@@ -57,6 +65,8 @@ export const fetchProfile = createAsyncThunk<User, void, { rejectValue: string }
         }
     }
 );
+
+// -------------------- Slice --------------------
 const authSlice = createSlice({
     name: "auth",
     initialState,
@@ -69,6 +79,7 @@ const authSlice = createSlice({
     },
     extraReducers: (builder) => {
         builder
+            // Login
             .addCase(login.pending, (state) => {
                 state.loading = true;
                 state.error = null;
@@ -81,6 +92,7 @@ const authSlice = createSlice({
                 state.loading = false;
                 state.error = action.payload as string;
             })
+            // Fetch Profile
             .addCase(fetchProfile.pending, (state) => {
                 state.loading = true;
                 state.error = null;
