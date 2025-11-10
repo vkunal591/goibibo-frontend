@@ -1,14 +1,19 @@
+"use client";
 import { useEffect } from "react";
-import { useRouter } from "next/router";
+import { useRouter, usePathname } from "next/navigation";
 import { useAppSelector } from "@/store/hooks";
 
 export const useAuth = () => {
-    const { accessToken }: any = useAppSelector((s) => s.auth);
-    const router = useRouter();
+  const { accessToken }: any = useAppSelector((s) => s.auth);
+  const router = useRouter();
+  const pathname = usePathname();
 
-    useEffect(() => {
-        if (!accessToken) router.push("/login");
-    }, [accessToken, router]);
+  useEffect(() => {
+    if (!accessToken && pathname !== "/login") {
+      router.push("/");
+    }
+    
+  }, [accessToken, pathname, router]);
 
-    return { isAuthenticated: !!accessToken };
+  return { isAuthenticated: !!accessToken };
 };
