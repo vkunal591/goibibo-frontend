@@ -32,38 +32,7 @@ const FlightBookingForm = () => {
     <div className="min-h-[70vh] p-6">
       <div className="max-w-7xl mx-auto">
         <div className="bg-card rounded-t-2xl shadow-lg border border-border">
-          <div className="flex w-full h-full border-b border-gray-200 
-  bg-gradient-to-r from-[#5A0F1A] to-[#7B1E3D] 
-  text-white rounded-t-2xl overflow-hidden shadow-md">
-
-            <button className="w-1/4 flex items-center justify-center gap-2 py-5 
-    bg-white/10 text-white font-semibold border-b-4 border-white 
-    transition-all duration-300 hover:bg-white/20 hover:scale-[1.02]">
-              <Plane className="h-5 w-5 text-white" />
-              <span>Book a Flight</span>
-            </button>
-
-            <button className="w-1/4 flex items-center justify-center gap-2 py-5 
-    text-white/80 hover:text-white font-medium border-b-4 border-transparent 
-    hover:border-white transition-all duration-300 hover:bg-white/10">
-              <Gift className="h-5 w-5" />
-              <span>Stopover / Packages</span>
-            </button>
-
-            <button className="w-1/4 flex items-center justify-center gap-2 py-5 
-    text-white/80 hover:text-white font-medium border-b-4 border-transparent 
-    hover:border-white transition-all duration-300 hover:bg-white/10">
-              <Calendar className="h-5 w-5" />
-              <span>Manage / Check-in</span>
-            </button>
-
-            <button className="w-1/4 flex items-center justify-center gap-2 py-5 
-    text-white/80 hover:text-white font-medium border-b-4 border-transparent 
-    hover:border-white transition-all duration-300 hover:bg-white/10">
-              <Radio className="h-5 w-5" />
-              <span>Flight Status</span>
-            </button>
-          </div>
+         
 
           <div className="p-8 bg-gray-50">
             <div className="flex gap-8 mb-6">
@@ -201,11 +170,11 @@ const FlightBookingForm = () => {
                 )}
               </div>
               <div className="flex items-center justify-center pb-2">
-               <button
-  className="p-3 rounded-full bg-gradient-to-r from-[#5A0F1A] to-[#7B1E3D] hover:from-[#4A0C15] hover:to-[#681A33] text-white shadow-md hover:scale-105 transition-transform"
->
-  <ArrowLeftRight className="h-5 w-5" />
-</button>
+                <button
+                  className="p-3 rounded-full bg-gradient-to-r from-[#5A0F1A] to-[#7B1E3D] hover:from-[#4A0C15] hover:to-[#681A33] text-white shadow-md hover:scale-105 transition-transform"
+                >
+                  <ArrowLeftRight className="h-5 w-5" />
+                </button>
 
               </div>
               <div className="flex-1 min-w-[180px] relative" ref={modalRef}>
