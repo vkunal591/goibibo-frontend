@@ -5,7 +5,6 @@ import Holidays from "../components/modals/Holidays";
 import Hotels from "../components/modals/Hotels";
 import { useAuth } from "@/hooks/useAuth";
 import { useAppSelector } from "@/store/hooks";
-import Layout from "../components/layout/Layout";
 
 const Page = () => {
   const { isAuthenticated } = useAuth();
@@ -13,15 +12,13 @@ const Page = () => {
 
   if (!isAuthenticated) return null;
   return (
-    <Layout >
-      <main className="relative">
-        <div className="-mt-20 md:-mt-28 relative z-30">
-          <FlightBookingForm />
-        </div>
-        <Holidays />
-        <Hotels />
-      </main>
-    </Layout>
+    <main className="relative">
+      <div className="-mt-20 md:-mt-28 relative z-30">
+        <FlightBookingForm />
+      </div>
+      <Holidays />
+      <Hotels />
+    </main>
   );
 };
 

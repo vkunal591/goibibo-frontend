@@ -1,4 +1,5 @@
 "use client";
+
 import { useState } from "react";
 import { Sun, Moon } from "lucide-react";
 import { useForm } from "react-hook-form";
@@ -7,17 +8,24 @@ import * as yup from "yup";
 import { login } from "@/features/auth/authSlice";
 import { useRouter } from "next/navigation";
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
+
+// ------------------ Types & Schema ------------------
 const schema = yup.object({
   email: yup.string().email("Invalid email").required("Email is required"),
   password: yup.string().required("Password is required"),
 });
-export type LoginData = yup.InferType<typeof schema>;  
+
+export type LoginData = yup.InferType<typeof schema>;
+
+// ------------------ Component ------------------
 export default function LoginPage() {
   const [darkMode, setDarkMode] = useState(false);
   const toggleDarkMode = () => setDarkMode(!darkMode);
+
   const dispatch = useAppDispatch();
   const router = useRouter();
   const { loading } = useAppSelector((s) => s.auth);
+
   const {
     register,
     handleSubmit,
@@ -25,14 +33,19 @@ export default function LoginPage() {
   } = useForm<LoginData>({
     resolver: yupResolver(schema),
   });
+
   const onSubmit = async (data: LoginData) => {
     try {
+      // Use unwrap() to get the fulfilled/rejected result directly
       const user = await dispatch(login(data)).unwrap();
+      // If successful, navigate to dashboard
       router.push("/dashboard");
     } catch (err: any) {
+      // Error toast is already handled in apiService, but just in case
       console.error("Login error:", err);
     }
   };
+
   return (
     <div
       className={`relative min-h-screen flex flex-col items-center justify-center transition-colors duration-500 ${
@@ -48,6 +61,8 @@ export default function LoginPage() {
       <div
         className={`absolute inset-0 ${darkMode ? "bg-black/40" : "bg-white/10"} backdrop-blur-[2px]`}
       />
+
+      {/* Dark Mode Toggle */}
       <div className="absolute top-6 right-6 z-20">
         <button
           onClick={toggleDarkMode}
@@ -60,13 +75,17 @@ export default function LoginPage() {
           )}
         </button>
       </div>
+
+      {/* Form Container */}
       <div className="relative z-10 w-full max-w-md p-8 rounded-2xl backdrop-blur-xl bg-white/20 dark:bg-gray-900/40 shadow-[0_8px_32px_rgba(0,0,0,0.37)] border border-white/30">
         <div className="text-center">
           <h2 className="mt-6 text-2xl font-semibold tracking-tight">
             Sign in to your account
           </h2>
         </div>
+
         <form className="mt-8 space-y-5" onSubmit={handleSubmit(onSubmit)}>
+          {/* Email */}
           <div>
             <label className="block text-sm font-medium">Email address</label>
             <input
@@ -79,6 +98,8 @@ export default function LoginPage() {
               <p className="text-red-500 text-sm mt-1">{errors.email.message}</p>
             )}
           </div>
+
+          {/* Password */}
           <div>
             <label className="block text-sm font-medium">Password</label>
             <input
@@ -91,6 +112,7 @@ export default function LoginPage() {
               <p className="text-red-500 text-sm mt-1">{errors.password.message}</p>
             )}
           </div>
+
           <button
             type="submit"
             disabled={loading}
