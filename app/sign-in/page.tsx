@@ -1,121 +1,179 @@
 "use client";
-import React from "react";
+import React, { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { Eye, EyeOff } from "lucide-react";
 const SignInPage = () => {
-    return (
-        <section className="min-h-screen flex items-stretch text-white">
-            <div
-                className="hidden lg:flex w-full bg-gray-500 bg-no-repeat bg-cover relative items-center"
-                style={{
-                    backgroundImage: "url('/assets/sign.jpg')",
-                    backgroundSize: "cover",
-                    backgroundPosition: "center",
-                    backgroundRepeat: "no-repeat",}}>
-                <div className="absolute bg-black/60 inset-0 z-0"></div>
-                <div className="w-full px-24 z-10">
-                    <h1 className="text-5xl font-bold text-left tracking-wide">
-                        Keep it special
-                    </h1>
-                    <p className="text-3xl my-4">
-                        Capture your personal memory in a unique way, anywhere.
-                    </p>
-                </div>
-                <div className="bottom-0 absolute p-4 text-center right-0 left-0 flex justify-center space-x-4">
-                    <span>
-                        <svg
-                            fill="#fff"
-                            xmlns="http://www.w3.org/2000/svg"
-                            width="24"
-                            height="24"
-                            viewBox="0 0 24 24"
-                        >
-                            <path d="M24 4.557c-.883.392-1.832.656-2.828.775..." />
-                        </svg>
-                    </span>
-                    <span>
-                        <svg
-                            fill="#fff"
-                            xmlns="http://www.w3.org/2000/svg"
-                            width="24"
-                            height="24"
-                            viewBox="0 0 24 24"
-                        >
-                            <path d="M9 8h-3v4h3v12h5v-12..." />
-                        </svg>
-                    </span>
-                </div>
-            </div>
-            <div
-                className="lg:w-1/2 w-full flex items-center justify-center text-center md:px-16 px-0 relative"
-                style={{ backgroundColor: "#161616" }}>
-                <div
-                    className="absolute lg:hidden z-10 inset-0 bg-gray-500 bg-no-repeat bg-cover"
-                    style={{
-                        backgroundImage:
-                            "url('https://images.unsplash.com/photo-1577495508048-b635879837f1?auto=format&fit=crop&w=675&q=80')",}}>
-                    <div className="absolute bg-black/60 inset-0 z-0"></div>
-                </div>
-                <div className="w-full bg-black py-6 z-20 max-w-md mx-auto">
-                    <h1 className="my-6 text-3xl font-bold text-indigo-400">Create Account</h1>
-                    <p className="text-gray-300 mb-4">Register to start your journey</p>
-                    <form className="sm:w-2/3 w-full px-4 lg:px-0 mx-auto">
-                        <div className="pb-2 pt-4">
-                            <input
-                                type="text"
-                                name="fullname"
-                                placeholder="Full Name"
-                                className="block w-full py-1 px-4 text-lg rounded-sm border-b-2 bg-black/50  border-gray-700 text-white focus:outline-none focus:ring-2 focus:ring-indigo-500"/>
-                        </div>
-                        <div className="pb-2 pt-4">
-                            <input
-                                type="text"
-                                name="ph. no."
-                                placeholder="number"
-                               className="block w-full py-1 px-4 text-lg rounded-sm border-b-2 bg-black/50  border-gray-700 text-white focus:outline-none focus:ring-2 focus:ring-indigo-500"/>
-                        </div>
-                        <div className="pb-2 pt-4">
-                            <input
-                                type="text"
-                                name="email"
-                                placeholder="email"
-                                className="block w-full py-1 px-4 text-lg rounded-sm border-b-2 bg-black/50  border-gray-700 text-white focus:outline-none focus:ring-2 focus:ring-indigo-500"/>
-                        </div><div className="pb-2 pt-4">
-                            <input
-                                type="password"
-                                name="passsword"
-                                placeholder="password"
-                                 className="block w-full py-1 px-4 text-lg rounded-sm border-b-2 bg-black/50  border-gray-700 text-white focus:outline-none focus:ring-2 focus:ring-indigo-500"/>
-                        </div><div className="pb-2 pt-4">
-                            <input
-                                type="password"
-                                name="passsword"
-                                placeholder="confirm password"
-                                className="block w-full py-1 px-4 text-lg rounded-sm border-b-2 bg-black/50  border-gray-700 text-white focus:outline-none focus:ring-2 focus:ring-indigo-500"/>
-                        </div>
-                        <div className="flex items-center justify-between text-gray-300 text-sm mt-4">
-                            <label className="flex items-center space-x-2">
-                                <input
-                                    type="checkbox"
-                                    className="form-checkbox text-indigo-500 focus:ring-indigo-500"/>
-                                <span>I agree to the terms & conditions</span>
-                            </label>
-                        </div>
-                        <div className="px-4 pb-2 pt-6">
-                            <button
-                                type="submit"
-                                className="uppercase block w-full p-4 text-lg rounded-full bg-indigo-500 hover:bg-indigo-600 focus:outline-none">
-                                Register
-                            </button>
-                        </div>
-                        <p className="text-center text-gray-400 mt-4">
-                            Already have an account?{" "}
-                            <a href="#" className="text-indigo-400 hover:underline">
-                                Sign In
-                            </a>
-                        </p>
-                    </form>
-                </div>
-            </div>
-        </section>
-    );
+  const [showPassword, setShowPassword] = useState(false);
+  const [isLogin, setIsLogin] = useState(false);
+  const variants = {
+    hiddenRight: { x: 150, opacity: 0 },
+    hiddenLeft: { x: -150, opacity: 0 },
+    visible: { x: 0, opacity: 1 },
+    exitLeft: { x: -150, opacity: 0 },
+    exitRight: { x: 150, opacity: 0 },
+  };
+  return (
+    <section className="relative min-h-screen flex items-center justify-between overflow-hidden text-white">
+      <div
+        className="absolute inset-0 bg-cover bg-center"
+        style={{
+          backgroundImage: "url('/assets/sign.jpg')",
+          backgroundSize: "cover",
+          backgroundPosition: "end",
+        }}
+      />
+      <div className="absolute inset-0 bg-gradient-to-r from-transparent via-[#701932cc] to-black"></div>
+      <motion.div
+        initial={{ x: -150, opacity: 0 }}
+        animate={{ x: 0, opacity: 1 }}
+        transition={{
+          type: "spring",
+          stiffness: 120,
+          damping: 10,
+          duration: 1.2,
+        }}
+        className="relative z-10 max-w-2xl pl-20"
+      >
+        <h1
+          className="text-6xl font-bold mb-6 leading-tight"
+          style={{ color: "#FFDDEE" }}
+        >
+          Book Your Journey with Ease
+        </h1>
+        <p className="text-xl font-light text-gray-200">
+          “Fly high, stress-free — because every great story begins with a
+          smooth takeoff.”
+        </p>
+      </motion.div>
+      <div className="relative z-10 flex justify-end w-full pr-16">
+        <div className="w-full max-w-sm">
+          <AnimatePresence mode="wait">
+            {!isLogin ? (
+              <motion.div
+                key="register"
+                variants={variants}
+                initial="hiddenRight"
+                animate="visible"
+                exit="exitLeft"
+                transition={{ type: "tween", duration: 0.8 }}
+                className="p-8 bg-black/50 backdrop-blur-sm rounded-xl shadow-xl"
+              >
+                <h2 className="text-3xl font-bold mb-2 text-center">
+                  Welcome Aboard
+                </h2>
+                <p className="text-gray-300 text-sm text-center mb-6">
+                  Create your account and start booking your dream flights.
+                </p>
+                <form className="space-y-4">
+                  <input
+                    type="text"
+                    placeholder="Full Name"
+                    className="w-full p-2 rounded-md bg-black/60 border border-gray-600 text-white focus:ring-2 focus:ring-[#701932] outline-none"
+                  />
+                  <input
+                    type="text"
+                    placeholder="Phone Number"
+                    className="w-full p-2 rounded-md bg-black/60 border border-gray-600 text-white focus:ring-2 focus:ring-[#701932] outline-none"
+                  />
+                  <input
+                    type="email"
+                    placeholder="Email Address"
+                    className="w-full p-2 rounded-md bg-black/60 border border-gray-600 text-white focus:ring-2 focus:ring-[#701932] outline-none"
+                  />
+                  <input
+                    type="text"
+                    placeholder="Address"
+                    className="w-full p-2 rounded-md bg-black/60 border border-gray-600 text-white focus:ring-2 focus:ring-[#701932] outline-none"
+                  />
+                  <div className="relative">
+                    <input
+                      type={showPassword ? "text" : "password"}
+                      placeholder="Password"
+                      className="w-full p-2 pr-10 rounded-md bg-black/60 border border-gray-600 text-white focus:ring-2 focus:ring-[#701932] outline-none"
+                    />
+                    <button
+                      type="button"
+                      onClick={() => setShowPassword(!showPassword)}
+                      className="absolute inset-y-0 right-3 flex items-center text-gray-400 hover:text-white"
+                    >
+                      {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
+                    </button>
+                  </div>
+                  <button
+                    type="submit"
+                    className="w-full py-2 mt-2 bg-[#701932] hover:bg-[#8b2346] transition-all rounded-md font-semibold"
+                  >
+                    Register
+                  </button>
+                </form>
+                <p className="text-center text-gray-400 mt-6 text-sm">
+                  Already have an account?{" "}
+                  <button
+                    onClick={() => setIsLogin(true)}
+                    className="text-[#ff5b89] hover:underline"
+                  >
+                    Login
+                  </button>
+                </p>
+              </motion.div>
+            ) : (
+              <motion.div
+                key="login"
+                variants={variants}
+                initial="hiddenLeft"
+                animate="visible"
+                exit="exitRight"
+                transition={{ type: "tween", duration: 0.8 }}
+                className="p-8 bg-black/50 backdrop-blur-sm rounded-xl shadow-xl"
+              >
+                <h2 className="text-3xl font-bold mb-2 text-center">
+                  Welcome Back
+                </h2>
+                <p className="text-gray-300 text-sm text-center mb-6">
+                  Login to continue your flight booking experience.
+                </p>
+                <form className="space-y-4">
+                  <input
+                    type="email"
+                    placeholder="Email Address"
+                    className="w-full p-2 rounded-md bg-black/60 border border-gray-600 text-white focus:ring-2 focus:ring-[#701932] outline-none"
+                  />
+                  <div className="relative">
+                    <input
+                      type={showPassword ? "text" : "password"}
+                      placeholder="Password"
+                      className="w-full p-2 pr-10 rounded-md bg-black/60 border border-gray-600 text-white focus:ring-2 focus:ring-[#701932] outline-none"
+                    />
+                    <button
+                      type="button"
+                      onClick={() => setShowPassword(!showPassword)}
+                      className="absolute inset-y-0 right-3 flex items-center text-gray-400 hover:text-white"
+                    >
+                      {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
+                    </button>
+                  </div>
+                  <button
+                    type="submit"
+                    className="w-full py-2 mt-2 bg-[#701932] hover:bg-[#8b2346] transition-all rounded-md font-semibold"
+                  >
+                    Login
+                  </button>
+                </form>
+                <p className="text-center text-gray-400 mt-6 text-sm">
+                  Don’t have an account?{" "}
+                  <button
+                    onClick={() => setIsLogin(false)}
+                    className="text-[#ff5b89] hover:underline"
+                  >
+                    Register
+                  </button>
+                </p>
+              </motion.div>
+            )}
+          </AnimatePresence>
+        </div>
+      </div>
+    </section>
+  );
 };
 export default SignInPage;
