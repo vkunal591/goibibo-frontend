@@ -20,7 +20,7 @@ const Header = () => {
         <ul className="hidden md:flex space-x-8 text-lg font-medium">
           <li className="hover:text-indigo-400 transition">Home</li>
           <li className="hover:text-indigo-400 transition">Flights</li>
-          <li className="hover:text-indigo-400 transition">Deals</li>
+          <li className="hover:text-indigo-400 transition">Holidays</li>
           <li className="hover:text-indigo-400 transition">About</li>
           <li className="hover:text-indigo-400 transition">Contact</li>
         </ul>
@@ -50,7 +50,7 @@ const Header = () => {
     <ul className="space-y-4 text-lg font-medium text-center">
       <li className="hover:text-indigo-400 transition">Home</li>
       <li className="hover:text-indigo-400 transition">Flights</li>
-      <li className="hover:text-indigo-400 transition">Deals</li>
+      <li className="hover:text-indigo-400 transition">Holidays</li>
       <li className="hover:text-indigo-400 transition">About</li>
       <li className="hover:text-indigo-400 transition">Contact</li>
     </ul>
