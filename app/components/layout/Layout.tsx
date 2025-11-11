@@ -25,7 +25,6 @@ export default function Layout({ children, protected: isProtected }: Props) {
 
     return (
         <div className="flex min-h-screen flex-col">
-            {/* <Header /> */}
             <Navbar />
             <div className="flex flex-1">
                 <main className="flex-1 p-4 bg-gray-50">{children}</main>
