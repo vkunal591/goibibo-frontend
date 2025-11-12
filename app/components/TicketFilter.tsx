@@ -3,12 +3,13 @@ import React, { useState } from "react";
 import Box from "@mui/material/Box";
 import Slider from "@mui/material/Slider";
 import { Sun, Sunrise, Sunset, Moon } from "lucide-react";
+
 const TicketFilter: React.FC = () => {
   const [priceRange, setPriceRange] = useState<number[]>([3000, 12000]);
-  const [selectedDeparture, setSelectedDeparture] = useState<string | null>(
-    null
-  );
+  const [selectedDeparture, setSelectedDeparture] = useState<string | null>(null);
   const [selectedArrival, setSelectedArrival] = useState<string | null>(null);
+  const [selectedCheckboxes, setSelectedCheckboxes] = useState<{ [key: string]: boolean }>({});
+
   const filterData = [
     {
       title: "Popular Filters",
@@ -18,8 +19,7 @@ const TicketFilter: React.FC = () => {
         {
           label: "IndiGo",
           price: "₹5,023",
-          iconUrl:
-            "https://imgak.goibibo.com/flights-gi-assets/dt/common/icons/6E.png?v=19",
+          iconUrl: "https://imgak.goibibo.com/flights-gi-assets/dt/common/icons/6E.png?v=19",
         },
         { label: "1 Stop", price: "₹6,285" },
       ],
@@ -44,8 +44,7 @@ const TicketFilter: React.FC = () => {
         {
           label: "IndiGo",
           price: "₹5,023",
-          iconUrl:
-            "https://imgak.goibibo.com/flights-gi-assets/dt/common/icons/6E.png?v=19",
+          iconUrl: "https://imgak.goibibo.com/flights-gi-assets/dt/common/icons/6E.png?v=19",
         },
       ],
     },
@@ -58,17 +57,59 @@ const TicketFilter: React.FC = () => {
       options: [{ label: "Small / Mid-size aircraft", price: "₹5,023" }],
     },
   ];
-  const handlePriceChange = (event: Event, newValue: number[] | number) => {
-    setPriceRange(newValue as number[]);
-  };
+
   const timeSlots = [
     { label: "Before 6 am", icon: <Sunrise className="w-5 h-5" /> },
     { label: "6 am - 12 pm", icon: <Sun className="w-5 h-5" /> },
     { label: "12 pm - 6 pm", icon: <Sunset className="w-5 h-5" /> },
     { label: "After 6 pm", icon: <Moon className="w-5 h-5" /> },
   ];
+
+  const handlePriceChange = (event: Event, newValue: number[] | number) => {
+    setPriceRange(newValue as number[]);
+  };
+
+  const handleCheckboxChange = (label: string) => {
+    setSelectedCheckboxes((prev) => ({
+      ...prev,
+      [label]: !prev[label],
+    }));
+  };
+
+  const handleClearFilters = () => {
+    setPriceRange([3000, 12000]);
+    setSelectedDeparture(null);
+    setSelectedArrival(null);
+    setSelectedCheckboxes({});
+  };
+
+  const handleSearch = () => {
+    const filters = {
+      priceRange,
+      selectedDeparture,
+      selectedArrival,
+      selectedCheckboxes,
+    };
+    console.log("Selected Filters:", filters);
+  };
+
   return (
-    <aside className="w-80 bg-white border border-gray-200 rounded-lg shadow-sm p-5 max-h-[90vh] overflow-y-auto">
+    <aside className="w-80 bg-white border border-gray-200 rounded-lg shadow-sm p-5 max-h-[90vh] overflow-y-auto relative">
+      <div className="sticky top-0 bg-white z-10 p-3 flex flex-col gap-2 border-b border-gray-200 mb-4">
+        <button
+          onClick={handleSearch}
+          className="w-full px-4 py-2 bg-gradient-to-r from-[#5A0F1A] to-[#7B1E3D] text-white rounded-md font-semibold text-sm"
+        >
+          Search
+        </button>
+        <button
+          onClick={handleClearFilters}
+          className="w-full px-4 py-2 border border-[#7B1E3D] text-[#7B1E3D] rounded-md font-semibold text-sm hover:bg-[#7B1E3D] hover:text-white transition"
+        >
+          Reset All
+        </button>
+      </div>
+
       {filterData.map((section, idx) => (
         <div key={idx} className="mb-8">
           <div className="flex items-center justify-between mb-4">
@@ -82,32 +123,27 @@ const TicketFilter: React.FC = () => {
                 <label className="flex items-center gap-3 cursor-pointer group">
                   <input
                     type="checkbox"
+                    checked={!!selectedCheckboxes[opt.label]}
+                    onChange={() => handleCheckboxChange(opt.label)}
                     className="appearance-none w-4 h-4 rounded border border-gray-300 cursor-pointer
                       checked:border-transparent checked:bg-gradient-to-r 
                       checked:from-[#5A0F1A] checked:to-[#7B1E3D] transition-all
                       relative after:content-['✓'] after:absolute after:text-white 
                       after:text-[10px] after:font-bold after:left-[3px] after:top-[-1px] 
-                      checked:after:block after:hidden"/>
+                      checked:after:block after:hidden"
+                  />
                   <span className="flex items-center text-gray-700 text-sm font-medium group-hover:text-[#7B1E3D] transition">
                     {opt.iconUrl && (
-                      <img
-                        src={opt.iconUrl}
-                        alt={opt.label}
-                        className="w-4 h-4 mr-1"
-                      />
+                      <img src={opt.iconUrl} alt={opt.label} className="w-4 h-4 mr-1" />
                     )}
                     {opt.label}
                   </span>
                 </label>
-                {opt.price && (
-                  <span className="text-gray-600 text-sm font-medium">
-                    {opt.price}
-                  </span>
-                )}
+                {opt.price && <span className="text-gray-600 text-sm font-medium">{opt.price}</span>}
               </li>
             ))}
           </ul>
-          
+
           {section.title === "Departure Airports" && (
             <div className="mt-6">
               <h4 className="text-gray-800 font-semibold text-sm uppercase mb-3">
@@ -155,6 +191,7 @@ const TicketFilter: React.FC = () => {
           )}
         </div>
       ))}
+
       <div className="mt-8">
         {[
           {
@@ -177,16 +214,15 @@ const TicketFilter: React.FC = () => {
                 <button
                   key={i}
                   onClick={() =>
-                    section.setSelected(
-                      section.selected === opt.label ? null : opt.label
-                    )
+                    section.setSelected(section.selected === opt.label ? null : opt.label)
                   }
                   className={`flex flex-col items-center justify-center p-3 rounded-md border transition-all
                     ${
                       section.selected === opt.label
                         ? "text-white bg-gradient-to-r from-[#5A0F1A] to-[#7B1E3D] border-transparent shadow-md"
                         : "border-[#5A0F1A]/40 text-gray-700 hover:border-[#7B1E3D] hover:text-[#7B1E3D]"
-                    }`}>
+                    }`}
+                >
                   {opt.icon}
                   <span className="text-xs font-medium mt-1">{opt.label}</span>
                 </button>
@@ -198,4 +234,5 @@ const TicketFilter: React.FC = () => {
     </aside>
   );
 };
+
 export default TicketFilter;
