@@ -6,12 +6,14 @@ import Link from "next/link";
 import { useSelector, useDispatch } from "react-redux";
 import { FaChevronDown, FaUserCircle } from "react-icons/fa";
 import { logout } from "@/features/auth/authSlice";
+import { useRouter } from "next/navigation";
 const poppins = Poppins({
   subsets: ["latin"],
   weight: ["400", "500", "600", "700"],
 });
 const Header = ({ heroSection = false }: { heroSection: boolean }) => {
   const user = useSelector((state: any) => state.auth.user);
+  const router = useRouter();
   const dispatch = useDispatch();
   const [menuOpen, setMenuOpen] = useState(false);
   const [dropdownOpen, setDropdownOpen] = useState(false);
@@ -28,11 +30,12 @@ const Header = ({ heroSection = false }: { heroSection: boolean }) => {
     document.addEventListener("mousedown", handleClickOutside);
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
+
   const handleLogout = () => {
     dispatch(logout());
     setDropdownOpen(false);
+    router.replace("/sign-in");
   };
-  console.log(user, heroSection);
 
   return (
     <header
@@ -106,13 +109,13 @@ const Header = ({ heroSection = false }: { heroSection: boolean }) => {
             </div>
           ) : (
             <Link
-              href={"/login"}
+              href={"/sign-in"}
               className="px-5 py-2 bg-gradient-to-r from-[#5A0F1A] to-[#7B1E3D]
               hover:from-[#4A0C15] hover:to-[#681A33]
               text-white rounded-full font-semibold
               shadow-md transition-all duration-300"
             >
-              Login
+              Sign In
             </Link>
           )}
         </div>
@@ -154,11 +157,11 @@ const Header = ({ heroSection = false }: { heroSection: boolean }) => {
               </>
             ) : (
               <Link
-                href="/login"
+                href="/sign-in"
                 className="px-6 py-2 w-full bg-gradient-to-r from-[#5A0F1A] to-[#7B1E3D]
                   hover:from-[#4A0C15] hover:to-[#681A33] rounded-full font-semibold transition text-center"
               >
-                Login
+                Sign In
               </Link>
             )}
           </div>
