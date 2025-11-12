@@ -1,11 +1,12 @@
 "use client";
+
 import { ReactNode, useEffect } from "react";
 import { useRouter } from "next/navigation";
-import Header from "../common/Navbar";
+import Navbar from "../common/Navbar";
 import Footer from "../common/Footer";
 import Loader from "../common/Loader";
-import { useAppSelector } from "@/store/hooks";
-import Navbar from "../common/Navbar";
+import { useAppDispatch, useAppSelector } from "@/store/hooks";
+import { fetchProfile } from "@/features/auth/authSlice";
 
 interface Props {
   children: ReactNode;
@@ -15,24 +16,40 @@ interface Props {
 
 export default function Layout({
   children,
-  protected: isProtected,
+  protected: isProtected = false,
   heroSection = false,
 }: Props) {
-  const { user } = useAppSelector((s) => s.auth);
+  const dispatch = useAppDispatch();
   const router = useRouter();
+  const { user, loading } = useAppSelector((s) => s.auth);
 
   useEffect(() => {
-    if (isProtected && !user) router.replace("/login");
-  }, [isProtected, user, router]);
+    const loadProfile = async () => {
+      try {
+        const data = await dispatch(fetchProfile());
+      } catch (err) {
+        console.error("Failed to fetch profile", err);
+      }
+    };
+    loadProfile();
+  }, [dispatch]);
 
-  if (isProtected && !user) return <Loader />;
+  // 🌀 Show loader when fetching profile
+  if (loading) {
+    return <Loader show={true} />;
+  }
 
+  // 🚫 If protected route and no user after loading — redirect
+  if (isProtected && !user) {
+    router.replace("/sign-in");
+    return <Loader show={true} />;
+  }
+
+  // ✅ Normal layout
   return (
-    <div className="flex min-h-screen flex-col">
+    <div className="flex min-h-screen flex-col bg-gray-50">
       <Navbar heroSection={heroSection} />
-      <div className="flex flex-1">
-        <main className="flex-1 p-4 bg-gray-50">{children}</main>
-      </div>
+      <main className="flex-1">{children}</main>
       <Footer />
     </div>
   );

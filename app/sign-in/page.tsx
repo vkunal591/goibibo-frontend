@@ -42,7 +42,7 @@ const SignInPage = () => {
   const handleLogin = async (data: LoginData) => {
     try {
       await dispatch(login(data)).unwrap();
-      router.push("/dashboard");
+      router.push("/");
     } catch (err) {
       console.error("Login failed:", err);
     }
@@ -51,7 +51,7 @@ const SignInPage = () => {
   const handleRegister = async (data: RegisterData) => {
     try {
       await dispatch(registerUser(data)).unwrap();
-      router.push("/home");
+      router.push("/");
     } catch (err) {
       console.error("Registration failed:", err);
     }
