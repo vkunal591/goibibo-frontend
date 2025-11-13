@@ -150,7 +150,7 @@ const handleSearchFlights = async () => {
                     }`}
                   >
                     {type === "return"
-                      ? "Return"
+                      ? "Two Way"
                       : type === "oneway"
                       ? "One Way"
                       : "Multi-City"}

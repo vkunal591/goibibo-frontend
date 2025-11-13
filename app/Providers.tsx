@@ -1,25 +1,35 @@
-'use client'
+"use client";
 
-import { store, persistor } from '@/store/store'
-import React from 'react'
-import { Toaster } from 'react-hot-toast'
-import { Provider } from 'react-redux'
-import { PersistGate } from 'redux-persist/integration/react'
+import { store, persistor } from "@/store/store";
+import React from "react";
+import { Provider } from "react-redux";
+import { ToastContainer } from "react-toastify";
+import { PersistGate } from "redux-persist/integration/react";
 
 const Providers = ({
-    children,
+  children,
 }: Readonly<{
-    children: React.ReactNode;
+  children: React.ReactNode;
 }>) => {
-    return (
-        <Provider store={store}>
-            <PersistGate persistor={persistor}>
-                {children}
-                <Toaster position="top-right" />
-            </PersistGate>
-        </Provider>
+  return (
+    <Provider store={store}>
+      <PersistGate persistor={persistor}>
+        {children}
+        <ToastContainer
+          position="top-right"
+          autoClose={3000}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+          theme="light" // change to "dark" if you want
+        />
+      </PersistGate>
+    </Provider>
+  );
+};
 
-    )
-}
-
-export default Providers
+export default Providers;
