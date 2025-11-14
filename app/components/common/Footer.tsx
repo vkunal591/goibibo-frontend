@@ -20,6 +20,7 @@ const sections = {
     { label: "Terms of Services", href: "/term-of-services" },
     { label: "Privacy Policy", href: "/privacy-policy" },
     { label: "user agreement", href: "/user-agreement" },
+    { label: "technical support", href: "/technical-support" },
   ],
   "Travel Essentials": [
     { label: "PNR Status", href: "/trains/check-pnr-status/" },
