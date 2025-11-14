@@ -1,12 +1,14 @@
 import type { AxiosInstance } from "axios";
-import toast from "react-hot-toast";
 import { appConfig } from "@/config/appConfig";
+import { showToast } from "@/app/components/common/ToastProvider";
 
 let isRefreshing = false;
 let failedQueue: any[] = [];
 
 const processQueue = (error: any, token: string | null = null) => {
-  failedQueue.forEach(prom => (error ? prom.reject(error) : prom.resolve(token)));
+  failedQueue.forEach((prom) =>
+    error ? prom.reject(error) : prom.resolve(token)
+  );
   failedQueue = [];
 };
 
@@ -37,15 +39,22 @@ export const setupInterceptors = (axiosClient: AxiosInstance) => {
         isRefreshing = true;
 
         try {
-          const refreshToken = localStorage.getItem(appConfig.tokenKeys.refresh);
-          const { data } = await axiosClient.post("/api/auth/refresh", { refreshToken });
+          const refreshToken = localStorage.getItem(
+            appConfig.tokenKeys.refresh
+          );
+          const { data } = await axiosClient.post("/api/auth/refresh", {
+            refreshToken,
+          });
 
           localStorage.setItem(appConfig.tokenKeys.access, data.accessToken);
           processQueue(null, data.accessToken);
           return axiosClient(originalRequest);
         } catch (err) {
           processQueue(err, null);
-          toast.error("Session expired. Please login again.");
+          showToast({
+            type: "error",
+            message: "Session expired. Please login again.",
+          });
           localStorage.clear();
           window.location.href = "/api/auth/login";
           return Promise.reject(err);
@@ -56,7 +65,7 @@ export const setupInterceptors = (axiosClient: AxiosInstance) => {
 
       const message = error.response?.data?.message || "Request failed";
       // toast.error(message);
-      return Promise.reject(error); 
+      return Promise.reject(error);
     }
   );
 };
