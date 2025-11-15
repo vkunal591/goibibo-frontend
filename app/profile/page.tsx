@@ -4,13 +4,10 @@ import { User, LogOut } from "lucide-react";
 import { useDispatch, useSelector } from "react-redux";
 import { logout } from "@/features/auth/authSlice";
 import Layout from "../components/layout/Layout";
-
 export default function ProfilePage() {
   const user = useSelector((state: any) => state.auth.user);
   const dispatch = useDispatch();
-
   const [isModalOpen, setIsModalOpen] = useState(false);
-
   const [profile, setProfile] = useState({
     firstName: "Amit Kumar",
     lastName: "Singh",
@@ -21,51 +18,40 @@ export default function ProfilePage() {
     maritalStatus: "Single",
     state: "Delhi",
     city: "New Delhi",
-    // Contact
     mobile: "+91-8860262227",
     email: "amit.singh@example.com",
-    // Documents
     passport: "N1234567",
     passportExpiry: "2030-12-31",
     issuingCountry: "India",
     pan: "ABCDE1234F",
-    // Preferences
     domesticPlan: "Standard Plan",
     internationalPlan: "Gold Plan",
-    // Frequent flyer (main view default first)
     flyers: [{ airline: "IndiGo", number: "IG123456789" }],
   });
-
   const handleLogout = () => {
     dispatch(logout());
   };
-
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
     setProfile((prev) => ({ ...prev, [name]: value }));
   };
-
   const addFlyer = () => {
     setProfile((prev) => ({ ...prev, flyers: [...prev.flyers, { airline: "", number: "" }] }));
   };
-
   const removeFlyer = (index: number) => {
     setProfile((prev) => ({ ...prev, flyers: prev.flyers.filter((_, i) => i !== index) }));
   };
-
   const updateFlyer = (index: number, field: "airline" | "number", value: string) => {
     setProfile((prev) => {
       const updated = prev.flyers.map((f, i) => (i === index ? { ...f, [field]: value } : f));
       return { ...prev, flyers: updated };
     });
   };
-
   const handleSubmit = () => {
     console.log("Profile Data Submitted:", profile);
     alert("Profile Updated Successfully!");
     setIsModalOpen(false);
   };
-
   return (
     <Layout protected heroSection={false}>
       {isModalOpen && (
@@ -91,12 +77,9 @@ export default function ProfilePage() {
               >
                 &times;
               </button>
-            </div>
-
+             </div>
             <div className="flex-1 overflow-y-auto text-gray-700 space-y-6">
               <p className="text-sm text-gray-600">Make changes to your profile details below and click Submit.</p>
-
-              {/* PERSONAL DETAILS */}
               <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
                 <div className="flex flex-col">
                   <label className="text-xs font-semibold text-gray-700 mb-1">FIRST & MIDDLE NAME</label>
@@ -108,7 +91,6 @@ export default function ProfilePage() {
                     className="border border-gray-300 rounded-md px-3 py-2 text-sm"
                   />
                 </div>
-
                 <div className="flex flex-col">
                   <label className="text-xs font-semibold text-gray-700 mb-1">LAST NAME</label>
                   <input
@@ -119,7 +101,6 @@ export default function ProfilePage() {
                     className="border border-gray-300 rounded-md px-3 py-2 text-sm"
                   />
                 </div>
-
                 <div className="flex flex-col">
                   <label className="text-xs font-semibold text-gray-700 mb-1">GENDER</label>
                   <select
@@ -133,7 +114,6 @@ export default function ProfilePage() {
                     <option>Other</option>
                   </select>
                 </div>
-
                 <div className="flex flex-col">
                   <label className="text-xs font-semibold text-gray-700 mb-1">DATE OF BIRTH</label>
                   <input
@@ -144,7 +124,6 @@ export default function ProfilePage() {
                     className="border border-gray-300 rounded-md px-3 py-2 text-sm"
                   />
                 </div>
-
                 <div className="flex flex-col">
                   <label className="text-xs font-semibold text-gray-700 mb-1">NATIONALITY</label>
                   <select
@@ -157,7 +136,6 @@ export default function ProfilePage() {
                     <option>Other</option>
                   </select>
                 </div>
-
                 <div className="flex flex-col">
                   <label className="text-xs font-semibold text-gray-700 mb-1">ANNIVERSARY DATE</label>
                   <input
@@ -168,7 +146,6 @@ export default function ProfilePage() {
                     className="border border-gray-300 rounded-md px-3 py-2 text-sm"
                   />
                 </div>
-
                 <div className="flex flex-col">
                   <label className="text-xs font-semibold text-gray-700 mb-1">MARITAL STATUS</label>
                   <select
@@ -181,7 +158,6 @@ export default function ProfilePage() {
                     <option>Married</option>
                   </select>
                 </div>
-
                 <div className="flex flex-col">
                   <label className="text-xs font-semibold text-gray-700 mb-1">STATE</label>
                   <input
@@ -192,7 +168,6 @@ export default function ProfilePage() {
                     className="border border-gray-300 rounded-md px-3 py-2 text-sm"
                   />
                 </div>
-
                 <div className="flex flex-col">
                   <label className="text-xs font-semibold text-gray-700 mb-1">CITY</label>
                   <input
@@ -204,8 +179,6 @@ export default function ProfilePage() {
                   />
                 </div>
               </div>
-
-              {/* CONTACT DETAILS */}
               <h3 className="text-sm font-semibold text-gray-800 mt-6">Contact Details</h3>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
                 <div className="flex flex-col">
@@ -218,7 +191,6 @@ export default function ProfilePage() {
                     className="border border-gray-300 rounded-md px-3 py-2 text-sm"
                   />
                 </div>
-
                 <div className="flex flex-col">
                   <label className="text-xs font-semibold text-gray-700 mb-1">EMAIL ADDRESS</label>
                   <input
@@ -230,8 +202,6 @@ export default function ProfilePage() {
                   />
                 </div>
               </div>
-
-              {/* DOCUMENT DETAILS */}
               <h3 className="text-sm font-semibold text-gray-800 mt-6">Document Details</h3>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
                 <div className="flex flex-col">
@@ -244,7 +214,6 @@ export default function ProfilePage() {
                     className="border border-gray-300 rounded-md px-3 py-2 text-sm"
                   />
                 </div>
-
                 <div className="flex flex-col">
                   <label className="text-xs font-semibold text-gray-700 mb-1">EXPIRY DATE</label>
                   <input
@@ -255,7 +224,6 @@ export default function ProfilePage() {
                     className="border border-gray-300 rounded-md px-3 py-2 text-sm"
                   />
                 </div>
-
                 <div className="flex flex-col">
                   <label className="text-xs font-semibold text-gray-700 mb-1">ISSUING COUNTRY</label>
                   <input
@@ -266,7 +234,6 @@ export default function ProfilePage() {
                     className="border border-gray-300 rounded-md px-3 py-2 text-sm"
                   />
                 </div>
-
                 <div className="flex flex-col">
                   <label className="text-xs font-semibold text-gray-700 mb-1">PAN CARD NUMBER</label>
                   <input
@@ -278,8 +245,6 @@ export default function ProfilePage() {
                   />
                 </div>
               </div>
-
-              {/* PREFERENCES */}
               <h3 className="text-sm font-semibold text-gray-800 mt-6">Your Preferences</h3>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
                 <div className="flex flex-col">
@@ -294,7 +259,6 @@ export default function ProfilePage() {
                     <option>Premium Plan</option>
                   </select>
                 </div>
-
                 <div className="flex flex-col">
                   <label className="text-xs font-semibold text-gray-700 mb-1">International Travel Insurance Plan</label>
                   <select
@@ -308,8 +272,6 @@ export default function ProfilePage() {
                   </select>
                 </div>
               </div>
-
-              {/* FREQUENT FLYER DETAILS */}
               <h3 className="text-sm font-semibold text-gray-800 mt-6">Frequent Flyer Details</h3>
               <div className="grid grid-cols-1 gap-3">
                 {profile.flyers.map((flyer, idx) => (
@@ -327,7 +289,6 @@ export default function ProfilePage() {
                         <option>Vistara</option>
                       </select>
                     </div>
-
                     <div className="flex flex-col">
                       <label className="text-xs font-semibold text-gray-700 mb-1">Frequent Flyer Number</label>
                       <input
@@ -337,7 +298,6 @@ export default function ProfilePage() {
                         className="border border-gray-300 rounded-md px-3 py-2 text-sm"
                       />
                     </div>
-
                     {idx > 0 && (
                       <div className="md:col-span-2 flex justify-end">
                         <button
@@ -350,7 +310,6 @@ export default function ProfilePage() {
                     )}
                   </div>
                 ))}
-
                 <div>
                   <button onClick={addFlyer} className="text-blue-600 text-xs font-semibold hover:underline">
                     + Add
@@ -358,7 +317,6 @@ export default function ProfilePage() {
                 </div>
               </div>
             </div>
-
             <div className="flex justify-end gap-3 border-t pt-4 mt-4">
               <button
                 onClick={() => setIsModalOpen(false)}
@@ -376,7 +334,6 @@ export default function ProfilePage() {
           </div>
         </div>
       )}
-
       <main className="min-h-screen bg-gray-50 flex justify-center py-10 px-4">
         <div className="flex w-full max-w-7xl bg-white rounded-3xl shadow-xl overflow-hidden border border-gray-200">
           <aside className="w-72 h-screen bg-gradient-to-b rounded-b-2xl from-[#5A0F1A] to-[#7B1E3D] text-white flex flex-col justify-between p-8">
@@ -407,7 +364,6 @@ export default function ProfilePage() {
               </ul>
             </div>
           </aside>
-
           <section className="flex-1 px-10 py-5">
             <div className="flex justify-between items-center border-b pb-4 mb-8">
               <h2 className="text-2xl font-bold text-gray-800">My Profile</h2>
@@ -418,7 +374,6 @@ export default function ProfilePage() {
                 Update Profile
               </button>
             </div>
-
             <div className="mb-10">
               <h3 className="text-sm font-bold mb-2 text-gray-800">General Information</h3>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
@@ -432,7 +387,6 @@ export default function ProfilePage() {
                     className="border border-gray-300 rounded-md px-3 py-2 text-sm focus:ring-2 focus:ring-[#7B1E3D]/30 focus:border-[#7B1E3D] outline-none"
                   />
                 </div>
-
                 <div className="flex flex-col">
                   <label className="text-xs font-semibold text-gray-700 mb-1">LAST NAME</label>
                   <input
@@ -443,7 +397,6 @@ export default function ProfilePage() {
                     className="border border-gray-300 rounded-md px-3 py-2 text-sm"
                   />
                 </div>
-
                 <div className="flex flex-col">
                   <label className="text-xs font-semibold text-gray-700 mb-1">GENDER</label>
                   <select
@@ -457,7 +410,6 @@ export default function ProfilePage() {
                     <option>Other</option>
                   </select>
                 </div>
-
                 <div className="flex flex-col">
                   <label className="text-xs font-semibold text-gray-700 mb-1">DATE OF BIRTH</label>
                   <input
@@ -468,7 +420,6 @@ export default function ProfilePage() {
                     className="border border-gray-300 rounded-md px-3 py-2 text-sm"
                   />
                 </div>
-
                 <div className="flex flex-col">
                   <label className="text-xs font-semibold text-gray-700 mb-1">NATIONALITY</label>
                   <select
@@ -481,7 +432,6 @@ export default function ProfilePage() {
                     <option>Other</option>
                   </select>
                 </div>
-
                 <div className="flex flex-col">
                   <label className="text-xs font-semibold text-gray-700 mb-1">ANNIVERSARY DATE</label>
                   <input
@@ -492,7 +442,6 @@ export default function ProfilePage() {
                     className="border border-gray-300 rounded-md px-3 py-2 text-sm"
                   />
                 </div>
-
                 <div className="flex flex-col">
                   <label className="text-xs font-semibold text-gray-700 mb-1">MARITAL STATUS</label>
                   <select
@@ -505,7 +454,6 @@ export default function ProfilePage() {
                     <option>Married</option>
                   </select>
                 </div>
-
                 <div className="flex flex-col">
                   <label className="text-xs font-semibold text-gray-700 mb-1">STATE</label>
                   <input
@@ -516,7 +464,6 @@ export default function ProfilePage() {
                     className="border border-gray-300 rounded-md px-3 py-2 text-sm"
                   />
                 </div>
-
                 <div className="flex flex-col">
                   <label className="text-xs font-semibold text-gray-700 mb-1">CITY</label>
                   <input
@@ -529,8 +476,6 @@ export default function ProfilePage() {
                 </div>
               </div>
             </div>
-
-            {/* Contact Details */}
             <div className="mb-10">
               <h3 className="text-sm font-bold mb-2 text-gray-800">Contact Details</h3>
               <div className="grid md:grid-cols-2 gap-5">
@@ -544,7 +489,6 @@ export default function ProfilePage() {
                     className="border border-gray-300 rounded-md px-3 py-2 text-sm text-gray-800 font-medium focus:ring-2 focus:ring-[#7B1E3D]/30 focus:border-[#7B1E3D] outline-none"
                   />
                 </div>
-
                 <div className="flex flex-col">
                   <label className="text-xs font-semibold text-gray-700 mb-1">EMAIL ADDRESS</label>
                   <input
@@ -557,8 +501,6 @@ export default function ProfilePage() {
                 </div>
               </div>
             </div>
-
-            {/* Document Details */}
             <div className="mb-10">
               <h3 className="text-sm font-bold mb-2 text-gray-800">Document Details</h3>
               <div className="grid md:grid-cols-2 gap-5">
@@ -572,7 +514,6 @@ export default function ProfilePage() {
                     className="border border-gray-300 rounded-md px-3 py-2 text-sm"
                   />
                 </div>
-
                 <div className="flex flex-col">
                   <label className="text-xs font-semibold text-gray-700 mb-1">EXPIRY DATE</label>
                   <input
@@ -583,7 +524,6 @@ export default function ProfilePage() {
                     className="border border-gray-300 rounded-md px-3 py-2 text-sm"
                   />
                 </div>
-
                 <div className="flex flex-col">
                   <label className="text-xs font-semibold text-gray-700 mb-1">ISSUING COUNTRY</label>
                   <select
@@ -596,7 +536,6 @@ export default function ProfilePage() {
                     <option>Other</option>
                   </select>
                 </div>
-
                 <div className="flex flex-col">
                   <label className="text-xs font-semibold text-gray-700 mb-1">PAN CARD NUMBER</label>
                   <input
